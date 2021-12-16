@@ -16,7 +16,7 @@ use rand_chacha::ChaCha20Rng;
 
 use crate::*;
 use ark_crypto_primitives::merkle_tree::constraints::PathVar;
-use crate::constraint::HashCalculate;
+// use crate::constraint::HashCalculate;
 
 pub type RootVar = <TwoToOneHashGadget as TwoToOneCRHGadget<TwoToOneHash, ConstraintF>>::OutputVar;
 pub type SimplePathVar =
@@ -79,29 +79,29 @@ pub fn groth_verify_s(
     verify_proof(&pvk, &proof, &[output]).unwrap()
 }
 
-pub fn groth_param_hash()-><Groth16<CurveTypeG> as SNARK<Fr>>::ProvingKey{
-    let mut rng = test_rng();
-    // let seed:u64 = rng.gen();
-    // let uid:u64 = rng.gen();
-    // let hash = HashCalculate(seed,uid);
-    let circuit = HashCalCircuit{
-        seed: None,
-        uid: None,
-        hash: None
-    };
-    generate_random_parameters::<CurveTypeG, _, _>(circuit, &mut rng).unwrap()
-}
-
-pub fn groth_proof_hash(param: &<Groth16<CurveTypeG> as SNARK<Fr>>::ProvingKey,
-                        circuit: MerkleTreeCircuit,)-> <Groth16<CurveTypeG> as SNARK<Fr>>::Proof{
-    let mut rng = test_rng();
-    create_random_proof(circuit, &param, &mut rng).unwrap()
-}
-
-pub fn groth_verify_hash(param: &<Groth16<CurveTypeG> as SNARK<Fr>>::ProvingKey,
-                         proof: &<Groth16<CurveTypeG> as SNARK<Fr>>::Proof,
-                         uid: u64,) -> bool {
-    let pvk = prepare_verifying_key(&param.vk);
-    verify_proof(&pvk, &proof, &[uid]).unwrap();
-    true
-}
+// pub fn groth_param_hash()-><Groth16<CurveTypeG> as SNARK<Fr>>::ProvingKey{
+//     let mut rng = test_rng();
+//     // let seed:u64 = rng.gen();
+//     // let uid:u64 = rng.gen();
+//     // let hash = HashCalculate(seed,uid);
+//     let circuit = HashCalCircuit{
+//         seed: None,
+//         uid: None,
+//         hash: None
+//     };
+//     generate_random_parameters::<CurveTypeG, _, _>(circuit, &mut rng).unwrap()
+// }
+//
+// pub fn groth_proof_hash(param: &<Groth16<CurveTypeG> as SNARK<Fr>>::ProvingKey,
+//                         circuit: MerkleTreeCircuit,)-> <Groth16<CurveTypeG> as SNARK<Fr>>::Proof{
+//     let mut rng = test_rng();
+//     create_random_proof(circuit, &param, &mut rng).unwrap()
+// }
+//
+// pub fn groth_verify_hash(param: &<Groth16<CurveTypeG> as SNARK<Fr>>::ProvingKey,
+//                          proof: &<Groth16<CurveTypeG> as SNARK<Fr>>::Proof,
+//                          uid: F,) -> bool {
+//     let pvk = prepare_verifying_key(&param.vk);
+//     verify_proof(&pvk, &proof, &[uid]).unwrap();
+//     true
+// }

@@ -114,7 +114,8 @@ pub fn constraint_test(){
 //         let mut hash = cs.new_witness_variable(hash_value.clone());
 //         let mut uid_value = self.uid;
 //         let mut uid = cs.new_input_variable(uid_value.clone());
-//         let is_satisfied = HashVerify(seed_value as u64,uid_value as u64,hash_value as u64);
+//         let is_satisfied = HashVerify(seed_value.unwrap(),uid_value.unwrap(),hash_value.unwrap());
+//         is_satisfied.enforce_equal(&Boolean::TRUE)?;
 //         // if is_satisfied{
 //         //     cs.enforce_constraint(
 //         //         lc!() + seed,
@@ -129,7 +130,7 @@ pub fn constraint_test(){
 //
 // }
 //
-// pub fn HashVerify(seed_value:u64,uid_value:u64,hash_value:u64) -> bool {
+// pub fn HashVerify(seed_value:u64,uid_value:u64,hash_value:u64) -> Result<Boolean<ConstraintF>, SynthesisError> {
 //     use std::collections::hash_map::DefaultHasher;
 //     use std::hash::Hasher;
 //     let mut hasher = DefaultHasher::new();
@@ -145,7 +146,11 @@ pub fn constraint_test(){
 //         if i == 1000 {break;}
 //     };
 //     //println!("cal: {:?}",cal);
-//     hash_value == cal
+//     if hash_value == cal {
+//         Ok(Boolean::Is(ConstraintF))
+//     }else{
+//         Ok(Boolean::Not(ConstraintF))
+//     }
 // }
 //
 // pub fn HashCalculate(seed:u64,uid:u64) -> u64{
